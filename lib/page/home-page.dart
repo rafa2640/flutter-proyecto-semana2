@@ -5,7 +5,11 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {  
+class _HomePageState extends State<HomePage> {
+  int _estatura = 166;
+  int _peso = 62;
+  int _edad = 38;
+  bool _genero = false;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +31,9 @@ class _HomePageState extends State<HomePage> {
                 child: Container(
                   margin: EdgeInsets.all(10),
                   child: ElevatedButton(
-                    style: ButtonStyle(                     
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(
+                          _genero ? Colors.grey[800] : Colors.grey[900]),
                       padding: MaterialStateProperty.all(EdgeInsets.all(10)),
                       shape: MaterialStateProperty.all(
                         RoundedRectangleBorder(
@@ -35,7 +41,10 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                     ),
-                    onPressed: () {                      
+                    onPressed: () {
+                      setState(() {
+                        _genero = true;
+                      });
                     },
                     child: Column(
                       children: [
@@ -63,7 +72,9 @@ class _HomePageState extends State<HomePage> {
                 child: Container(
                   margin: EdgeInsets.all(10),
                   child: ElevatedButton(
-                    style: ButtonStyle(                      
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(
+                          _genero ? Colors.grey[900] : Colors.grey[800]),
                       padding: MaterialStateProperty.all(EdgeInsets.all(10)),
                       shape: MaterialStateProperty.all(
                         RoundedRectangleBorder(
@@ -72,6 +83,9 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                     onPressed: () {
+                      setState(() {
+                        _genero = false;
+                      });
                     },
                     child: Column(
                       children: [
@@ -101,7 +115,8 @@ class _HomePageState extends State<HomePage> {
         Expanded(
           child: Container(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),              
+              borderRadius: BorderRadius.circular(15),
+              color: Colors.grey[800],
             ),
             margin: EdgeInsets.all(10),
             padding: EdgeInsets.all(10),
@@ -110,26 +125,42 @@ class _HomePageState extends State<HomePage> {
               children: [
                 Text(
                   "Estatura",
-                  style: TextStyle(fontSize: 22),
+                  style: TextStyle(fontSize: 20),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "166",
+                      "$_estatura",
                       style:
-                          TextStyle(fontSize: 41, fontWeight: FontWeight.bold),
+                          TextStyle(fontSize: 48, fontWeight: FontWeight.bold),
                     ),
                     Baseline(
                       baseline: 35,
                       baselineType: TextBaseline.alphabetic,
                       child: Text(
                         "cm",
-                        style: TextStyle(fontSize: 20),
+                        style: TextStyle(fontSize: 18),
                       ),
                     ),
                   ],
-                ),                
+                ),
+                SliderTheme(
+                  data: SliderThemeData(
+                    thumbColor: Colors.pink,
+                    activeTrackColor: Colors.white,
+                    inactiveTrackColor: Colors.grey,
+                  ),
+                  child: Slider(
+                      value: _estatura.toDouble(),
+                      min: 120.0,
+                      max: 220.0,
+                      onChanged: (double newValue) {
+                        setState(() {
+                          _estatura = newValue.round();
+                        });
+                      }),
+                )
               ],
             ),
           ),
@@ -140,7 +171,8 @@ class _HomePageState extends State<HomePage> {
               Expanded(
                 child: Container(
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),                    
+                    borderRadius: BorderRadius.circular(15),
+                    color: Colors.grey[800],
                   ),
                   margin: EdgeInsets.all(10),
                   padding: EdgeInsets.all(10),
@@ -152,7 +184,7 @@ class _HomePageState extends State<HomePage> {
                         style: TextStyle(fontSize: 20),
                       ),
                       Text(
-                        "62",
+                        "$_peso",
                         style: TextStyle(
                             fontSize: 44, fontWeight: FontWeight.bold),
                       ),
@@ -161,8 +193,12 @@ class _HomePageState extends State<HomePage> {
                         children: [
                           ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                                shape: CircleBorder()),
-                            onPressed: () {                              
+                                shape: CircleBorder(),
+                                primary: Colors.grey[700]),
+                            onPressed: () {
+                              setState(() {
+                                _peso--;
+                              });
                             },
                             child: Text("-",
                                 style: TextStyle(
@@ -170,9 +206,12 @@ class _HomePageState extends State<HomePage> {
                           ),
                           ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                                shape: CircleBorder()),
-                                
-                            onPressed: () {                              
+                                shape: CircleBorder(),
+                                primary: Colors.grey[700]),
+                            onPressed: () {
+                              setState(() {
+                                _peso++;
+                              });
                             },
                             child: Text("+",
                                 style: TextStyle(
@@ -187,7 +226,8 @@ class _HomePageState extends State<HomePage> {
               Expanded(
                 child: Container(
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),                    
+                    borderRadius: BorderRadius.circular(15),
+                    color: Colors.grey[800],
                   ),
                   margin: EdgeInsets.all(10),
                   padding: EdgeInsets.all(10),
@@ -199,7 +239,7 @@ class _HomePageState extends State<HomePage> {
                         style: TextStyle(fontSize: 20),
                       ),
                       Text(
-                        "38",
+                        "$_edad",
                         style: TextStyle(
                             fontSize: 44, fontWeight: FontWeight.bold),
                       ),
@@ -208,9 +248,12 @@ class _HomePageState extends State<HomePage> {
                         children: [
                           ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                                shape: CircleBorder()),
-                                
+                                shape: CircleBorder(),
+                                primary: Colors.grey[700]),
                             onPressed: () {
+                              setState(() {
+                                _edad--;
+                              });
                             },
                             child: Text("-",
                                 style: TextStyle(
@@ -218,9 +261,12 @@ class _HomePageState extends State<HomePage> {
                           ),
                           ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                                shape: CircleBorder()),
-                                
+                                shape: CircleBorder(),
+                                primary: Colors.grey[700]),
                             onPressed: () {
+                              setState(() {
+                                _edad++;
+                              });
                             },
                             child: Text("+",
                                 style: TextStyle(
@@ -245,9 +291,8 @@ class _HomePageState extends State<HomePage> {
                 child: ElevatedButton(
                   style: ButtonStyle(
                       backgroundColor:
-                          MaterialStateProperty.all(Colors.pink)),
+                          MaterialStateProperty.all<Color>(Colors.pink)),
                   onPressed: () {                    
-                      
                   },
                   child: Text(
                     "Calcular",
